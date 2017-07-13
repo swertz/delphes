@@ -8,7 +8,7 @@ file(GLOB executables RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp)
 # TODO: implement switch to enable CMSSW, ProMC and Pythia8 if present
 list(REMOVE_ITEM executables DelphesCMSFWLite.cpp)
 list(REMOVE_ITEM executables DelphesProMC.cpp)
-list(REMOVE_ITEM executables DelphesPythia8.cpp)
+#list(REMOVE_ITEM executables DelphesPythia8.cpp)
 
 # build all executables and put them into bin/
 foreach(sourcefile ${executables})
@@ -17,3 +17,5 @@ foreach(sourcefile ${executables})
   target_link_libraries(${name} Delphes)
   install(TARGETS ${name} DESTINATION bin)
 endforeach()
+
+target_link_libraries(DelphesPythia8 ${PYTHIA8_LIBRARY})

@@ -23,7 +23,7 @@
 
 #include <signal.h>
 
-#include "Pythia.h"
+#include "Pythia8/Pythia.h"
 #include "Pythia8Plugins/CombineMatchingInput.h"
 
 #include "TROOT.h"
@@ -37,6 +37,7 @@
 #include "TLorentzVector.h"
 
 #include "modules/Delphes.h"
+#include "modules/ResonanceDecayFilterHook.h"
 #include "classes/DelphesClasses.h"
 #include "classes/DelphesFactory.h"
 #include "classes/DelphesLHEFReader.h"
@@ -236,8 +237,8 @@ int main(int argc, char *argv[])
   Pythia8::Pythia *pythia = 0;
 
   // for matching
-  Pythia8::CombineMatchingInput *combined = 0;
-  Pythia8::UserHooks* matching = 0;
+  //Pythia8::CombineMatchingInput *combined = 0;
+  //Pythia8::UserHooks* matching = 0;
 
   if(argc != 4)
   {
@@ -286,13 +287,19 @@ int main(int argc, char *argv[])
     pythia = new Pythia8::Pythia;
 
     // jet matching
-    matching = combined->getHook(*pythia);
+    /*matching = combined->getHook(*pythia);
     if(!matching)
     {
       throw runtime_error("can't do matching");
     }
-    pythia->setUserHooksPtr(matching);
+    pythia->setUserHooksPtr(matching);*/
 
+    Pythia8::UserHooks* hook_filter = new ResonanceDecayFilterHook();
+    if(hook_filter == NULL)
+    {
+      throw runtime_error("can't create user hook");
+    }
+    pythia->setUserHooksPtr(hook_filter);
 
     if(pythia == NULL)
     {
@@ -424,6 +431,7 @@ int main(int argc, char *argv[])
     delete confReader;
     delete treeWriter;
     delete outputFile;
+    delete hook_filter;
 
     return 0;
   }

@@ -293,6 +293,7 @@ DelphesPythia8$(ExeSuf): \
 tmp/readers/DelphesPythia8.$(ObjSuf): \
 	readers/DelphesPythia8.cpp \
 	modules/Delphes.h \
+	modules/ResonanceDecayFilterHook.h \
 	classes/DelphesClasses.h \
 	classes/DelphesFactory.h \
 	classes/DelphesLHEFReader.h \
@@ -360,6 +361,7 @@ tmp/modules/ModulesDict.$(SrcSuf): \
 	modules/ImpactParameterSmearing.h \
 	modules/TimeSmearing.h \
 	modules/SimpleCalorimeter.h \
+	modules/DenseTrackFilter.h \
 	modules/Calorimeter.h \
 	modules/OldCalorimeter.h \
 	modules/Isolation.h \
@@ -643,6 +645,15 @@ tmp/modules/Delphes.$(ObjSuf): \
 	external/ExRootAnalysis/ExRootClassifier.h \
 	external/ExRootAnalysis/ExRootConfReader.h \
 	external/ExRootAnalysis/ExRootTreeWriter.h
+tmp/modules/DenseTrackFilter.$(ObjSuf): \
+	modules/DenseTrackFilter.$(SrcSuf) \
+	modules/DenseTrackFilter.h \
+	classes/DelphesClasses.h \
+	classes/DelphesFactory.h \
+	classes/DelphesFormula.h \
+	external/ExRootAnalysis/ExRootResult.h \
+	external/ExRootAnalysis/ExRootFilter.h \
+	external/ExRootAnalysis/ExRootClassifier.h
 tmp/modules/Efficiency.$(ObjSuf): \
 	modules/Efficiency.$(SrcSuf) \
 	modules/Efficiency.h \
@@ -846,6 +857,9 @@ tmp/modules/RecoPuFilter.$(ObjSuf): \
 	external/ExRootAnalysis/ExRootResult.h \
 	external/ExRootAnalysis/ExRootFilter.h \
 	external/ExRootAnalysis/ExRootClassifier.h
+tmp/modules/ResonanceDecayFilterHook.$(ObjSuf): \
+	modules/ResonanceDecayFilterHook.$(SrcSuf) \
+	modules/ResonanceDecayFilterHook.h
 tmp/modules/SimpleCalorimeter.$(ObjSuf): \
 	modules/SimpleCalorimeter.$(SrcSuf) \
 	modules/SimpleCalorimeter.h \
@@ -1036,6 +1050,7 @@ DELPHES_OBJ +=  \
 	tmp/modules/Cloner.$(ObjSuf) \
 	tmp/modules/ConstituentFilter.$(ObjSuf) \
 	tmp/modules/Delphes.$(ObjSuf) \
+	tmp/modules/DenseTrackFilter.$(ObjSuf) \
 	tmp/modules/Efficiency.$(ObjSuf) \
 	tmp/modules/EnergyScale.$(ObjSuf) \
 	tmp/modules/EnergySmearing.$(ObjSuf) \
@@ -1057,6 +1072,7 @@ DELPHES_OBJ +=  \
 	tmp/modules/PileUpJetID.$(ObjSuf) \
 	tmp/modules/PileUpMerger.$(ObjSuf) \
 	tmp/modules/RecoPuFilter.$(ObjSuf) \
+	tmp/modules/ResonanceDecayFilterHook.$(ObjSuf) \
 	tmp/modules/SimpleCalorimeter.$(ObjSuf) \
 	tmp/modules/StatusPidFilter.$(ObjSuf) \
 	tmp/modules/TaggingParticlesSkimmer.$(ObjSuf) \
@@ -1676,6 +1692,10 @@ TCL_OBJ +=  \
 	tmp/external/tcl/tclStringObj.$(ObjSuf) \
 	tmp/external/tcl/tclUtil.$(ObjSuf) \
 	tmp/external/tcl/tclVar.$(ObjSuf)
+
+modules/DenseTrackFilter.h: \
+	classes/DelphesModule.h
+	@touch $@
 
 modules/VertexFinderDA4D.h: \
 	classes/DelphesModule.h

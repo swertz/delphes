@@ -110,6 +110,9 @@ void StatusPidFilter::Process()
     // electrons, muons, taus and neutrinos
     if(pdgCode > 10 && pdgCode < 17) pass = kTRUE;
 
+    // photons
+    if(pdgCode == 22) pass = kTRUE;
+
     // heavy quarks
     if(pdgCode == 4 ||pdgCode == 5 || pdgCode == 6) pass = kTRUE;
 
